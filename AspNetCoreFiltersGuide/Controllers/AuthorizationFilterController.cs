@@ -1,4 +1,5 @@
-﻿using AspNetCoreFiltersGuide.Filters;
+﻿using AspNetCoreFiltersGuide.Attributes;
+using AspNetCoreFiltersGuide.Filters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -62,9 +63,20 @@ namespace AspNetCoreFiltersGuide.Controllers
         #region Applying Filter as a ServiceFilter
         //As AuthorizationAsyncFilter does not have any manually passed arguments, which is why it can be used as a Service Filter, however AuthorizationAsyncFilter has to be DI registered
         [HttpGet]
-        [Route("check-access")]
+        [Route("check-access-with-servicefilter")]
         [ServiceFilter(typeof(AuthorizationAsyncFilter))]
         public async Task<IActionResult> CheckAccess5()
+        {
+            return Ok("Access Granted");
+        }
+        #endregion
+
+        #region Applying Filter combined with Attribute
+        //Since CustomAuthorization inherits from TypeFilterAttribute, you do not need to Register the Filter in DI container.
+        [HttpGet]
+        [Route("check-access-with-attribute")]
+        [CustomAuthorization("param")]
+        public async Task<IActionResult> CheckAccess6()
         {
             return Ok("Access Granted");
         }
