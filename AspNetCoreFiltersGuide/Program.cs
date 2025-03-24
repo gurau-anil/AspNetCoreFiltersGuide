@@ -10,7 +10,7 @@ builder.Services.AddControllers(options =>
 {
     //Registering Global Filter, which will be applied to all the controllers
     //Dependencies will be resolved automatically, however all the dependencies has to be registered
-    options.Filters.Add<LoggingActionFilter>();
+    options.Filters.Add<LoggingActionFilter>(); // also can specify filter execution order
 
     // If parameters are passed manually then we have to create an instance
 
