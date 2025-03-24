@@ -70,6 +70,24 @@ namespace AspNetCoreFiltersGuide.Filters
             RequestHandler.HandleRequest(context);
         }
     }
+
+
+    //This filter is created to use it as a service filter, however it can be applied it as a type filter
+    // For this Filter to be used as a service Filter, it has to be DI registered.
+    // Use this as a service Filter when there are no parameters to be passed manually, however it can have Dependencies, which will be resolved from the DI container.
+    public class AuthorizationAsyncFilter : IAsyncAuthorizationFilter
+    {
+        private readonly ILogger<AuthorizationAsyncFilterWithParameterAndDependency> _logger;
+        public AuthorizationAsyncFilter(ILogger<AuthorizationAsyncFilterWithParameterAndDependency> logger)
+        {
+            _logger = logger;
+        }
+        public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
+        {
+            _logger.LogInformation("Inside Authorization Filter with dependency");
+            RequestHandler.HandleRequest(context);
+        }
+    }
     #endregion
 
     public static class RequestHandler

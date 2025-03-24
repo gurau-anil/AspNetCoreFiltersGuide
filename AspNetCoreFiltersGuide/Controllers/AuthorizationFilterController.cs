@@ -58,5 +58,16 @@ namespace AspNetCoreFiltersGuide.Controllers
         #endregion
 
         #endregion
+
+        #region Applying Filter as a ServiceFilter
+        //As AuthorizationAsyncFilter does not have any manually passed arguments, which is why it can be used as a Service Filter, however AuthorizationAsyncFilter has to be DI registered
+        [HttpGet]
+        [Route("check-access")]
+        [ServiceFilter(typeof(AuthorizationAsyncFilter))]
+        public async Task<IActionResult> CheckAccess5()
+        {
+            return Ok("Access Granted");
+        }
+        #endregion
     }
 }
