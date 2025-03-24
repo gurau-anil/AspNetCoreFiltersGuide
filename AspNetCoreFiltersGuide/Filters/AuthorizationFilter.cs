@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace AspNetCoreFiltersGuide.Filters
 {
-    #region Authorization Filter with and without parameter
     //Creating Authorization Filter without parameter
     public class AuthorizationFilterWithoutParameter : IAuthorizationFilter
     {
@@ -28,9 +27,6 @@ namespace AspNetCoreFiltersGuide.Filters
         }
     }
 
-    #endregion
-
-    #region Async Authorization Filter with and without parameter
     //Creating Async Authorization Filter without parameter
     public class AuthorizationAsyncFilterWithoutParameter : IAsyncAuthorizationFilter
     {
@@ -71,7 +67,6 @@ namespace AspNetCoreFiltersGuide.Filters
         }
     }
 
-
     //This filter is created to use it as a service filter, however it can be applied it as a type filter
     // For this Filter to be used as a service Filter, it has to be DI registered.
     // Use this as a service Filter when there are no parameters to be passed manually, however it can have Dependencies, which will be resolved from the DI container.
@@ -88,11 +83,10 @@ namespace AspNetCoreFiltersGuide.Filters
             RequestHandler.HandleRequest(context);
         }
     }
-    #endregion
 
-    public static class RequestHandler
+    internal static class RequestHandler
     {
-        public static void HandleRequest(AuthorizationFilterContext context)
+        internal static void HandleRequest(AuthorizationFilterContext context)
         {
             if (new Random().Next(3) % 2 == 0)
             {
